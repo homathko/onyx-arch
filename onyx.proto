@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+package onyx;
+
+message Posrep {
+    string imei = 1;
+    double dateTime = 2;
+    float latitude = 3;
+    float longitude = 4;
+    uint32 altInMeters = 5;
+    uint32 speedInMps = 6;
+
+    enum PosMode {
+        TRACK_START = 0;
+        SPEEDUP = 1;
+        SPEEDDOWN = 2;
+        TRACK_END = 3;
+    }
+
+    PosMode mode = 7;
+}
+
+message Message {
+    string imei = 1;
+    double dateTime = 2;
+    float latitude = 3;
+    float longitude = 4;
+    uint32 altInMeters = 5;
+    uint32 speedInMps = 6;
+
+    enum MessageMode {
+        DISTRESS = 0;
+        SYSTEM = 1;
+        AIR_GROUND = 2;
+        AIR_AIR = 3;
+        GROUND_AIR = 4;
+        GROUND_GROUND = 5;
+    }
+
+    MessageMode mode = 7;
+}
