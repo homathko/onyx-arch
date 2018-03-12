@@ -20,7 +20,7 @@ net.createServer(function(socket) {
     
     socket.on('data', (data) => {
         console.log(data);
-        const buffer = Buffer.from(data).toString(16);
+        const buffer = Buffer.from(data).toString();
     
         ds.DSUpdate(null, buffer, (err, savedData) => {
             if (err) {
