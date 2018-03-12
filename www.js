@@ -6,51 +6,36 @@
  *
  */
 
-const bodyParser = require('body-parser');
-const express = require('express');
-// const Coder = require('./lib/Coder');
+const net = require('net');
+const Coder = require('./lib/Coder');
 const DS = require('./lib/Persistence');
 
-const app = express();
-// const posRepCoder = new Coder ('onyx.Posrep');
-// const ds = new DS();
-
-app.use(bodyParser.json({type: 'application/json'}));
-app.use(bodyParser.raw({type: 'application/onyx-buffer'}));
-
-app.get('/', (req, res) => {
-    res.sendStatus(200);
-});
-
-app.post('/', (req, res) => {
-    // Only receives post requests from Iridium gateway
-    // Conduct test and check to determine source
-    // let posrepRx;
-    //
-    // if (req.headers['user-agent'] === 'axios/0.17.1' || req.headers['user-agent'] === 'insomnia/5.12.4') {
-    //     posrepRx = posRepCoder.decode(req.body);
-    //     if (posrepRx)
-    //         res.statusCode = 200;
-    // } else {
-    //     res.statusCode = 404;
-    // }
-    //
-    // ds.DSUpdate(null, posrepRx, (err, savedData) => {
-    //     if (err) {
-    //         throw new Error(err);
-    //     }
-    // });
-    //
-    // res.end(JSON.stringify(posrepRx));
-    console.log(JSON.stringify(req));
-    res.end(req.body);
-});
+const posRepCoder = new Coder ('onyx.Posrep');
+const ds = new DS();
 
 const PORT = 8080;
 
-app.listen(PORT, () => {
-    console.log(`Server listening on port ${PORT}`);
+net.createServer(function(socket) {
+    console.log('connection detected');
+    
+    socket.on('data', (data) => {
+        console.log(data);
+        const buffer = Buffer.from(data).toString(16);
+    
+        ds.DSUpdate(null, buffer, (err, savedData) => {
+            if (err) {
+                throw new Error(err);
+            }
+            
+            console.log('Saved data: ' + savedData);
+        });
+    });
+    
+    socket.on('end', () => {
+        console.log('Connection closed');
+    });
+}).listen(PORT, () => {
+    console.log('server listening');
 });
-
 
 
