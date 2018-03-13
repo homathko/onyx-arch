@@ -27,7 +27,7 @@ net.createServer(function(socket) {
     
         ws.write(data + '\n\n');
         for (const value of buffer.values()) {
-            ws.write(value + '\n');
+            ws.write(value.toString('binary'));
         }
         
     
