@@ -27,7 +27,7 @@ net.createServer(function(socket) {
     
         ws.write(data + '\n\n');
         for (const value of buffer.values()) {
-            ws.write(value.toString(2) + ' ');
+            ws.write(value.toString(16) + ' ');
         }
         
     
