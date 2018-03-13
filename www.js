@@ -25,8 +25,10 @@ net.createServer(function(socket) {
         console.log(data);
         const buffer = Buffer.from(data, 'binary');
     
-        ws.write(data);
-        ws.write(buffer);
+        ws.write(data + '\n\n');
+        for (const value of buffer.values()) {
+            ws.write(value + '\n');
+        }
         
     
         // ds.DSUpdate(null, buffer, (err, savedData) => {
