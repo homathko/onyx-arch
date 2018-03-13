@@ -10,6 +10,9 @@ const net = require('net');
 const Coder = require('./lib/Coder');
 const DS = require('./lib/Persistence');
 
+const fs = require('fs');
+const ws = fs.createWriteStream('from-office.txt');
+
 const posRepCoder = new Coder ('onyx.Posrep');
 const ds = new DS();
 
@@ -20,19 +23,22 @@ net.createServer(function(socket) {
     
     socket.on('data', (data) => {
         console.log(data);
-        const buffer = Buffer.from(data).toString();
+        const buffer = Buffer.from(data).toString('binary');
+        
+        ws.write(buffer);
     
-        ds.DSUpdate(null, buffer, (err, savedData) => {
-            if (err) {
-                throw new Error(err);
-            }
-            
-            console.log('Saved data: ' + savedData);
-        });
+        // ds.DSUpdate(null, buffer, (err, savedData) => {
+        //     if (err) {
+        //         throw new Error(err);
+        //     }
+        //
+        //     console.log('Saved data: ' + savedData);
+        // });
     });
     
     socket.on('end', () => {
         console.log('Connection closed');
+        ws.close();
     });
 }).listen(PORT, () => {
     console.log('server listening');
