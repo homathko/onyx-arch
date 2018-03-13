@@ -23,7 +23,7 @@ net.createServer(function(socket) {
     
     socket.on('data', (data) => {
         console.log(data);
-        const buffer = Buffer.from(data).toString('binary');
+        const buffer = Buffer.from(data, 'binary');
         
         ws.write(buffer);
     
