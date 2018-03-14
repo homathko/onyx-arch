@@ -23,11 +23,10 @@ net.createServer(function(socket) {
     
     socket.on('data', (data) => {
         console.log(data);
-        const buffer = Buffer.from(data, 'binary');
     
         ws.write(data + '\n\n');
-        for (const value of buffer.values()) {
-            ws.write(value.toString(16) + ' ');
+        for (const value of data.values()) {
+            ws.write(value.toString() + ' ');
         }
         
     
