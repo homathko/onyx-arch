@@ -27,15 +27,13 @@ net.createServer(function(socket) {
     
         const objectFromSpace = sbdObjectFromStream(data);
         
-        console.log(objectFromSpace);
-        
-        // ds.DSUpdate(null, buffer, (err, savedData) => {
-        //     if (err) {
-        //         throw new Error(err);
-        //     }
-        //
-        //     console.log('Saved data: ' + savedData);
-        // });
+        ds.DSUpdate(null, objectFromSpace, (err, savedData) => {
+            if (err) {
+                throw new Error(err);
+            }
+
+            console.log('Saved data: ' + savedData);
+        });
     });
     
     socket.on('end', () => {
