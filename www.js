@@ -11,7 +11,7 @@ const Coder = require('./lib/Coder');
 const DS = require('./lib/Persistence');
 
 const fs = require('fs');
-const ws = fs.createWriteStream('from-office.txt');
+const ws = fs.createWriteStream('from-space.txt');
 
 const posRepCoder = new Coder ('onyx.Posrep');
 const ds = new DS();
