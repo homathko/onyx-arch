@@ -13,6 +13,7 @@ const DS = require('./lib/Persistence');
 const fs = require('fs');
 const ws = fs.createWriteStream('from-space.txt');
 
+const sbdObjectFromStream = require('./sbd-stream');
 const posRepCoder = new Coder ('onyx.Posrep');
 const ds = new DS();
 
@@ -24,12 +25,10 @@ net.createServer(function(socket) {
     socket.on('data', (data) => {
         console.log(data);
     
-        ws.write(data + '\n\n');
-        for (const value of data.values()) {
-            ws.write(value.toString() + ' ');
-        }
+        const objectFromSpace = sbdObjectFromStream(data);
         
-    
+        console.log(objectFromSpace);
+        
         // ds.DSUpdate(null, buffer, (err, savedData) => {
         //     if (err) {
         //         throw new Error(err);
@@ -42,6 +41,7 @@ net.createServer(function(socket) {
     socket.on('end', () => {
         console.log('Connection closed');
         ws.close();
+        socket.end(); // Best practice to close socket at both ends
     });
 }).listen(PORT, () => {
     console.log('server listening');
