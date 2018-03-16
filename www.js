@@ -14,7 +14,7 @@ const fs = require('fs');
 const ws = fs.createWriteStream('from-space.txt');
 
 const sbdObjectFromStream = require('./sbd-stream');
-const posRepCoder = new Coder ('onyx.Posrep');
+const PosrepDecoder = new Coder ('.././onyx-proto.json', 'onyx.Posrep');
 const ds = new DS();
 
 const PORT = 8080;
@@ -23,9 +23,15 @@ net.createServer(function(socket) {
     console.log('connection detected');
     
     socket.on('data', (data) => {
-        console.log(data);
+        console.log(data+'\n\n');
     
         const objectFromSpace = sbdObjectFromStream(data);
+    
+        const decodedBuffer = PosrepDecoder.decode(objectFromSpace.payload);
+        const protoBufferObject = PosrepDecoder.coder.toObject(decodedBuffer);
+    
+        objectFromSpace.decodedPayload = JSON.stringify(protoBufferObject);
+        console.log(JSON.stringify(protoBufferObject)+'\n');
         
         ds.DSUpdate(null, objectFromSpace, (err, savedData) => {
             if (err) {

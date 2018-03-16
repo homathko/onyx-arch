@@ -64,10 +64,8 @@ proto.onyx.Posrep.prototype.toObject = function(opt_includeInstance) {
  */
 proto.onyx.Posrep.toObject = function(includeInstance, msg) {
   var f, obj = {
-    imei: jspb.Message.getFieldWithDefault(msg, 1, ""),
-    datetime: +jspb.Message.getFieldWithDefault(msg, 2, 0.0),
-    latitude: +jspb.Message.getFieldWithDefault(msg, 3, 0.0),
-    longitude: +jspb.Message.getFieldWithDefault(msg, 4, 0.0),
+    latitude: +jspb.Message.getFieldWithDefault(msg, 1, 0.0),
+    longitude: +jspb.Message.getFieldWithDefault(msg, 2, 0.0),
     altinmeters: jspb.Message.getFieldWithDefault(msg, 5, 0),
     speedinmps: jspb.Message.getFieldWithDefault(msg, 6, 0),
     mode: jspb.Message.getFieldWithDefault(msg, 7, 0)
@@ -108,18 +106,10 @@ proto.onyx.Posrep.deserializeBinaryFromReader = function(msg, reader) {
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setImei(value);
-      break;
-    case 2:
-      var value = /** @type {number} */ (reader.readDouble());
-      msg.setDatetime(value);
-      break;
-    case 3:
       var value = /** @type {number} */ (reader.readFloat());
       msg.setLatitude(value);
       break;
-    case 4:
+    case 2:
       var value = /** @type {number} */ (reader.readFloat());
       msg.setLongitude(value);
       break;
@@ -164,31 +154,17 @@ proto.onyx.Posrep.prototype.serializeBinary = function() {
  */
 proto.onyx.Posrep.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = message.getImei();
-  if (f.length > 0) {
-    writer.writeString(
-      1,
-      f
-    );
-  }
-  f = message.getDatetime();
-  if (f !== 0.0) {
-    writer.writeDouble(
-      2,
-      f
-    );
-  }
   f = message.getLatitude();
   if (f !== 0.0) {
     writer.writeFloat(
-      3,
+      1,
       f
     );
   }
   f = message.getLongitude();
   if (f !== 0.0) {
     writer.writeFloat(
-      4,
+      2,
       f
     );
   }
@@ -223,66 +199,37 @@ proto.onyx.Posrep.PosMode = {
   TRACK_START: 0,
   SPEEDUP: 1,
   SPEEDDOWN: 2,
-  TRACK_END: 3
+  TRACK_END: 3,
+  PING: 4
 };
 
 /**
- * optional string imei = 1;
- * @return {string}
- */
-proto.onyx.Posrep.prototype.getImei = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
-};
-
-
-/** @param {string} value */
-proto.onyx.Posrep.prototype.setImei = function(value) {
-  jspb.Message.setProto3StringField(this, 1, value);
-};
-
-
-/**
- * optional double dateTime = 2;
- * @return {number}
- */
-proto.onyx.Posrep.prototype.getDatetime = function() {
-  return /** @type {number} */ (+jspb.Message.getFieldWithDefault(this, 2, 0.0));
-};
-
-
-/** @param {number} value */
-proto.onyx.Posrep.prototype.setDatetime = function(value) {
-  jspb.Message.setProto3FloatField(this, 2, value);
-};
-
-
-/**
- * optional float latitude = 3;
+ * optional float latitude = 1;
  * @return {number}
  */
 proto.onyx.Posrep.prototype.getLatitude = function() {
-  return /** @type {number} */ (+jspb.Message.getFieldWithDefault(this, 3, 0.0));
+  return /** @type {number} */ (+jspb.Message.getFieldWithDefault(this, 1, 0.0));
 };
 
 
 /** @param {number} value */
 proto.onyx.Posrep.prototype.setLatitude = function(value) {
-  jspb.Message.setProto3FloatField(this, 3, value);
+  jspb.Message.setProto3FloatField(this, 1, value);
 };
 
 
 /**
- * optional float longitude = 4;
+ * optional float longitude = 2;
  * @return {number}
  */
 proto.onyx.Posrep.prototype.getLongitude = function() {
-  return /** @type {number} */ (+jspb.Message.getFieldWithDefault(this, 4, 0.0));
+  return /** @type {number} */ (+jspb.Message.getFieldWithDefault(this, 2, 0.0));
 };
 
 
 /** @param {number} value */
 proto.onyx.Posrep.prototype.setLongitude = function(value) {
-  jspb.Message.setProto3FloatField(this, 4, value);
+  jspb.Message.setProto3FloatField(this, 2, value);
 };
 
 
