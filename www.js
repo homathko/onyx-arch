@@ -44,7 +44,8 @@ net.createServer(function(socket) {
             ping.longitude = pingJSON.longitude;
             ping.altitude = pingJSON.altInMeters;
             ping.mode = pingJSON.mode;
-            ping.timeOfSession = savedData.timeOfSession
+            ping.timeOfSession = savedData.timeOfSession;
+            ping.MOMRecordId = savedData.id;
             
             
             ds.DSUpdate('PosRep', null, ping, (err, savedPing) => {
