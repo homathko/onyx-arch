@@ -44,6 +44,7 @@ net.createServer(function(socket) {
             ping.longitude = pingJSON.longitude;
             ping.altitude = pingJSON.altInMeters;
             ping.mode = pingJSON.mode;
+            ping.timeOfSession = savedData.timeOfSession
             
             
             ds.DSUpdate('PosRep', null, ping, (err, savedPing) => {
@@ -51,7 +52,7 @@ net.createServer(function(socket) {
                     throw new Error(err);
                 }
                 
-                console.log("New entity of type PosRep created");
+                console.log("New entity of type PosRep created: \n" + JSON.stringify(savedPing));
             });
         });
     });
