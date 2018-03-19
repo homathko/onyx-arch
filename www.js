@@ -24,7 +24,7 @@ net.createServer(function(socket) {
     
     socket.on('data', (data) => {
         console.log(data+'\n\n');
-    
+        let ping = {};
         const objectFromSpace = sbdObjectFromStream(data);
     
         const decodedBuffer = PosrepDecoder.decode(objectFromSpace.payload);
@@ -33,12 +33,26 @@ net.createServer(function(socket) {
         objectFromSpace.decodedPayload = JSON.stringify(protoBufferObject);
         console.log(JSON.stringify(protoBufferObject)+'\n');
         
-        ds.DSUpdate(null, objectFromSpace, (err, savedData) => {
+        ds.DSUpdate('MOMRecord', null, objectFromSpace, (err, savedData) => {
             if (err) {
                 throw new Error(err);
             }
 
-            console.log('Saved data: ' + savedData);
+            const pingJSON = JSON.parse(savedData.decodedPayload);
+            ping.imei = parseInt(savedData.imei, 10);
+            ping.latitude = pingJSON.latitude;
+            ping.longitude = pingJSON.longitude;
+            ping.altitude = pingJSON.altInMeters;
+            ping.mode = pingJSON.mode;
+            
+            
+            ds.DSUpdate('PosRep', null, ping, (err, savedPing) => {
+                if (err) {
+                    throw new Error(err);
+                }
+                
+                console.log("New entity of type PosRep created");
+            });
         });
     });
     
