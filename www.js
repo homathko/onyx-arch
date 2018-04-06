@@ -43,6 +43,7 @@ net.createServer(function(socket) {
             ping.latitude = pingJSON.latitude;
             ping.longitude = pingJSON.longitude;
             ping.altitude = pingJSON.altInMeters;
+            ping.speedInMps = pingJSON.speedInMps;
             ping.mode = pingJSON.mode;
             ping.timeOfSession = savedData.timeOfSession;
             ping.MOMRecordId = savedData.id;
