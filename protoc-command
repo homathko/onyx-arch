@@ -1,0 +1,1 @@
+protoc onyx.proto --js_out=library=onyx-proto,binary:.

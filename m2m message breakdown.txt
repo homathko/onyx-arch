@@ -1,0 +1,55 @@
+1   // Protocol revision number
+0   // Overall message length
+34  // ---> (52)
+1   // Information element identifier (1 - MO Header)
+0   // MO header length (always 28)
+1c  // ---> (28)
+92  // Call data record number
+38  // ---
+84  // ---
+6f  // ---> (2453177455)
+33  // IMEI (3)
+30  // (0)
+30  // (0)
+34  // (4)
+33  // (3)
+34  // (4)
+30  // (0)
+36  // (6)
+33  // (3)
+33  // (3)
+30  // (0)
+32  // (2)
+31  // (1)
+34  // (4)
+30  // (0)
+0   // Session status (0 - OK)
+0   // Mobile originated message sequence number
+17  // (23)
+0   // Mobile terminated message sequence number
+0   // (0)
+5a  // Time of session
+a6  // ---
+c9  // ---
+4a  // ---> 1520879946 (Monday, March 12, 2018 11:39:06 AM GMT-07:00 DST)
+3   // IEI (3 - MO Location Information)
+0   // MO location info length
+b   // ---> (11)
+1   // MO latitude and longitude (bit 6: 0=North, 1=South --- bit 7: 0=East, 1=West)
+31  // ---> Latitude (deg) = 49
+b5  // ---> Latitude (minutes/1000)
+45  // ---> Latitude (minutes/1000) ---> 46405
+7b  // ---> Longitude (deg) = 123               N49.773333 W123.08916667
+14  // ---> Longitude (minutes/1000)
+e1  // ---> Longitude (minutes/1000) ---> 5345
+0   // CEP radius (kms)
+0   // ---
+0   // ---
+7   // ---> 7
+2   // IEI (2 - MO payload IEI)
+0   // MO payload length
+4   // ---> (4)
+42  // MO payload (B)
+4f  // ---> (O)
+44  // ---> (D)
+59  // ---> (Y)
